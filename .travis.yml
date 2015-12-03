@@ -11,7 +11,7 @@ before_script:
   - export PATH=`pwd`/elixir/bin:$PATH
   - mix local.hex --force
   - git clone https://github.com/hexpm/hex_web.git
-  - cd hex_web; mix deps.get; MIX_ENV=hex mix compile; cd ..
+  - (cd hex_web; mix deps.get; MIX_ENV=hex mix compile; cd ..)
   - mix deps.get
   - MIX_ENV=test mix deps.compile
 script:
