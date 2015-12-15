@@ -31,6 +31,27 @@ defmodule Hex.Utils do
     end
   end
 
+  def update_registry_manul(local_gz_file \\ Path.join(__DIR__, "registry.ets.gz")) do
+    path    = Hex.Registry.path
+    path_gz = path <> ".gz"
+    
+    unless File.exists? local_gz_file do
+      Hex.Shell.warn "#{local_gz_file} doesn't exists!"
+    end
+    
+    case File.read(local_gz_file) do
+      {:ok, content} ->
+        File.mkdir_p!(Path.dirname(path))
+        File.write!(path_gz, content)
+        data = :zlib.gunzip(content)
+        File.write!(path, data)
+        {:ok, "manully update registry success!"}
+      {:error, _} ->
+        Hex.Shell.error "error in read: #{local_gz_file}"
+        {:error, "manully update registry failed!"}
+    end
+  end
+  
   defp update_registry(opts) do
     cond do
       Hex.State.fetch!(:offline?) ->
