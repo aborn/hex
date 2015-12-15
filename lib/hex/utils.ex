@@ -49,7 +49,7 @@ defmodule Hex.Utils do
           if fetch? do
             api_opts =
             if Keyword.get(opts, :cache, true) do
-              [etag: etag(path_gz)]
+              [] #[etag: etag(path_gz)]
             else
               []
             end
