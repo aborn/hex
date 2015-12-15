@@ -18,6 +18,7 @@ defmodule Hex.API do
       'accept-encoding' => 'gzip',
       'user-agent' => user_agent()}
     headers = Dict.merge(default_headers, headers)
+    Hex.Shell.info "request call, method:#{method}, url:#{url}"
 
     http_opts = [ssl: ssl_opts(url), relaxed: true] ++ Hex.Utils.proxy_config(url)
     opts = [body_format: :binary]
@@ -98,6 +99,7 @@ defmodule Hex.API do
     http_opts = [ssl: ssl_opts(url), relaxed: true] ++ Hex.Utils.proxy_config(url)
     opts = [body_format: :binary]
     url = String.to_char_list(url)
+    Hex.Shell.info "request_tar call, method:#{method}, url:#{url}"
 
     body = fn
       size when size < byte_size(body) ->
