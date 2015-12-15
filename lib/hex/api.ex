@@ -99,7 +99,6 @@ defmodule Hex.API do
     http_opts = [ssl: ssl_opts(url), relaxed: true] ++ Hex.Utils.proxy_config(url)
     opts = [body_format: :binary]
     url = String.to_char_list(url)
-    Hex.Shell.info "request_tar call, method:#{method}, url:#{url}"
 
     body = fn
       size when size < byte_size(body) ->
